@@ -1,10 +1,7 @@
-# Watermill NATS Pub/Sub
+# Watermill Jetstream Pub/Sub
 <img align="right" width="200" src="https://threedots.tech/watermill-io/watermill-logo.png">
 
-[![CircleCI](https://circleci.com/gh/ThreeDotsLabs/watermill-nats/tree/master.svg?style=svg)](https://circleci.com/gh/ThreeDotsLabs/watermill-nats/tree/master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/ThreeDotsLabs/watermill-nats)](https://goreportcard.com/report/github.com/ThreeDotsLabs/watermill-nats)
-
-This is Pub/Sub for the [Watermill](https://watermill.io/) project.
+This is Pub/Sub for the [Watermill](https://watermill.io/) project targeting [NATS Jetstream](https://docs.nats.io/nats-concepts/jetstream).
 
 All Pub/Sub implementations can be found at [https://watermill.io/pubsubs/](https://watermill.io/pubsubs/).
 

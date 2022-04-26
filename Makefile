@@ -14,14 +14,33 @@ test_race:
 	go test ./... -short -race
 
 test_stress:
-	STRESS_TEST_COUNT=4 go test -tags=stress -parallel 30 -timeout=45m ./...
+	go test -tags=stress -parallel 30 -timeout=45m ./...
 
 test_reconnect:
 	go test -tags=reconnect ./...
 
+test_exactlyonce:
+	go test -tags=exactlyonce ./...
+
+BENCHCNT := 5
+
+bench:
+	go test -bench=. -count $(BENCHCNT) -run=^# ./...
+
 fmt:
-	go fmt ./...
-	goimports -l -w .
+	gofmt -l $$(find . -type f -name '*.go'| grep -v "/vendor/")
+	[ "`gofmt -l $$(find . -type f -name '*.go'| grep -v "/vendor/")`" = "" ]
+
+vet:
+	go vet ./...
+
+lint:
+	@if which golangci-lint >/dev/null ; then golangci-lint run --config .golangci.yml ; else echo "WARNING: go linter not installed. To install, run\n  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b \$$(go env GOPATH)/bin v1.42.1"; fi
+
+check: fmt vet lint
+
+generate_proto:
+	cd pkg/jetstream/wmpb && protoc --go_out=. *.proto
 
 update_watermill:
 	go get -u github.com/ThreeDotsLabs/watermill
